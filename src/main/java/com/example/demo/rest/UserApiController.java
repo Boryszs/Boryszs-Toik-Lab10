@@ -24,15 +24,6 @@ public class UserApiController {
     @PostMapping("/api/users/login")
     public ResponseEntity<Void> login(@RequestBody LoginDto loginDto) {
         LOGGER.info("--- check login data: {}", loginDto);
-
-        Boolean flaga=userService.checkLogin(loginDto.getLogin(), loginDto.getPassword());
-        if (flaga==null) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        else if (flaga==true) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+        return new ResponseEntity<>(userService.checkLogin(loginDto.getLogin(), loginDto.getPassword()));
     }
 }
